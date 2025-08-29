@@ -47,7 +47,12 @@ func process_physics(_delta: float) -> State:
 	if landing_done:
 		if !movement && parent.is_on_floor():
 			return parent.idleState
-		return parent.runningState
+		
+		if Input.is_action_pressed("run"):
+			return parent.runningState
+		
+		return parent.walkingState
+		
 	
 	return null
 

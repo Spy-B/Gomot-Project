@@ -18,12 +18,16 @@ var speed: float = 1.0
 @export var player: CharacterBody2D
 @export var damage: int = 25
 
+@export var visiblityNotifier: bool = true
+
 
 @onready var path_follower: PathFollow2D = $PathFollow2D
 @onready var collision_shape: CollisionShape2D = $Obstacle/CollisionShape2D
 @onready var animated_sprite: AnimatedSprite2D = $Obstacle/AnimatedSprite2D
 @onready var sprite: Sprite2D = $Obstacle/ObstacleSprite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+@onready var visible_on_screen_notifier: VisibleOnScreenNotifier2D = $Obstacle/VisibleOnScreenNotifier2D
 
 
 func _ready() -> void:
@@ -59,6 +63,8 @@ func apply_properties() -> void:
 	
 	if collisionShape:
 		collision_shape.shape = collisionShape
+	
+	visible_on_screen_notifier.visible = visiblityNotifier
 	
 	animation_player.speed_scale = speedScale
 

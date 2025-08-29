@@ -24,6 +24,8 @@ var tween: Tween
 @export_range(0, 100, 5, "or_greater") var damage: int = 25
 @export_range(0.1, 1.0, 0.05) var swingTime: float = 2.0
 
+@export var visiblityNotifier: bool = true
+
 
 @onready var swinging_center: Marker2D = $SwingingCenter
 @onready var stick_sprite: Sprite2D = $SwingingCenter/StickSprite
@@ -33,6 +35,8 @@ var tween: Tween
 @onready var pendulum_sprite: Sprite2D = $SwingingCenter/Pendulum/PendulumSprite
 @onready var animated_pendulum_sprite: AnimatedSprite2D = $SwingingCenter/Pendulum/AnimatedPendulumSprite
 @onready var collision_shape: CollisionShape2D = $SwingingCenter/Pendulum/CollisionShape2D
+
+@onready var visible_on_screen_notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 
 
 func _ready() -> void:
@@ -89,6 +93,8 @@ func apply_properties() -> void:
 	
 	if collisionShape:
 		collision_shape.shape = collisionShape
+	
+	visible_on_screen_notifier.visible = visiblityNotifier
 
 
 func _on_pendulum_body_entered(body: Node2D) -> void:

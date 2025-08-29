@@ -4,6 +4,7 @@ var connected_portal: Variant
 
 @export var portal_1: Node2D
 @export var portal_2: Node2D
+
 @export var player: CharacterBody2D
 
 func _ready() -> void:

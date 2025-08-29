@@ -66,7 +66,7 @@ var dash_dir: Vector2 = Vector2.RIGHT
 @export_range(500, 5000, 100) var dashPower: float = 2500
 @export_range(100, 1000, 50) var dashLength: float = 250
 @export_range(1, 10, 1, "or_greater") var dashPoints: int = 1
-@export_range(0.1, 5.0, 0.2, "or_greater") var dashCooldown: float = 1.0
+@export_range(0.1, 5.0, 0.1, "or_greater") var dashCooldown: float = 1.0
 
 @export_group("Attacking Ability")
 @export var attackingAbility: bool = true
@@ -118,6 +118,7 @@ var health_bar_tween: Tween
 @onready var ui: CanvasLayer = $UI
 @onready var phone_ui: CanvasLayer = $PhoneUI
 
+
 func _ready() -> void:
 	state_machine.init(self, gun_barrel, animation_player, coyote_timer, jump_buffer_timer)
 	
@@ -144,6 +145,7 @@ func _process(delta: float) -> void:
 		#ui.combo_counter.text = str(combo_fight_points)
 	
 	camera_offset()
+
 
 func camera_offset() -> void:
 	var tween: Tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)

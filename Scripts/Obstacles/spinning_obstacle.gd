@@ -29,6 +29,8 @@ extends Node2D
 @export var player: CharacterBody2D
 @export_range(0, 100, 5, "or_greater") var damage: int = 25
 
+@export var visiblityNotifier: bool = true
+
 
 @onready var spining_center: Marker2D = $SpiningCenter
 @onready var stick_sprite: Sprite2D = $SpiningCenter/StickSprite
@@ -43,6 +45,9 @@ extends Node2D
 @onready var collision_shape_2: CollisionShape2D = $SpiningCenter/Pendulum2/CollisionShape2D2
 @onready var pendulum_2_sprite: Sprite2D = $SpiningCenter/Pendulum2/Pendulum2Sprite
 @onready var animated_pendulum_2_sprite: AnimatedSprite2D = $SpiningCenter/Pendulum2/AnimatedPendulum2Sprite
+
+@onready var visible_on_screen_notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
+
 
 func _ready() -> void:
 	apply_properties()
@@ -118,7 +123,8 @@ func apply_properties() -> void:
 	
 	if collisionShape2:
 		collision_shape_2.shape = collisionShape2
-
+	
+	visible_on_screen_notifier.visible = visiblityNotifier
 
 func _on_pendulum_body_entered(body: Node2D) -> void:
 	if body == player:
