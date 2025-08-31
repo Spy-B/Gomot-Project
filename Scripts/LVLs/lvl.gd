@@ -8,10 +8,15 @@ var default_time_scale: float = 1.0
 @onready var time_scale_timer: Timer = $TimeScaleTimer
 @export var waitTime: float = 1.0
 
+@export_group("Others")
+@export var player: CharacterBody2D
+
 #NOTE: Add the lvl number system in order to detect the nearset save to the game end. (must use the Global Script) - {or we can use the played time}
 #var lvl_number: int
 
 func _ready() -> void:
+	Global.root_scene = self
+	
 	#Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	
 	Global.save_game("lvl", self.scene_file_path)

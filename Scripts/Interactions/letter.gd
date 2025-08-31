@@ -1,6 +1,9 @@
 @tool
 extends Node2D
 
+signal declare_interaction
+signal undeclare_interaction
+
 @export_group("Properties")
 @export_multiline var letterText: String
 #@export var playerGroup: String = "Player"
@@ -11,6 +14,9 @@ extends Node2D
 
 @export var player: CharacterBody2D
 
+@export var visiblityNotifier: bool = true
+
+
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ui: CanvasLayer = $UI
@@ -18,22 +24,31 @@ extends Node2D
 @onready var label: Label = $UI/Control/Label
 @onready var quit: Button = $UI/Control/Quit
 
+@onready var visible_on_screen_notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
+
 var player_in_range: bool = false
+
 
 func _ready() -> void:
 	apply_properties()
 	
-	
 	if OS.get_name() == "Android":
 		quit.visible = true
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact") && player_in_range:
-		_on_quit_pressed()
+#func _input(event: InputEvent) -> void:
+	#if event.is_action_pressed("interact") && player_in_range:
+		#_on_quit_pressed()
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		apply_properties()
+	
+	
+	self.declare_interaction.connect(func() -> void:
+		Global.root_scene.player.runtime_vars.obj_you_interacted_with = self)
+	
+	self.undeclare_interaction.connect(func() -> void:
+		Global.root_scene.player.runtime_vars.obj_you_interacted_with = null)
 
 func apply_properties() -> void:
 	if letterText:
@@ -49,17 +64,22 @@ func apply_properties() -> void:
 		sprite.texture = letterTexture
 		sprite.scale.x = letterTextureScale
 		sprite.scale.y = letterTextureScale
+	
+	visible_on_screen_notifier.visible = visiblityNotifier
+
+func interact() -> void:
+	_on_quit_pressed()
 
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body == player:
-		player_in_range = true
-		body.runtime_vars.interaction_detected = true
-
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body == player:
-		player_in_range = false
-		body.runtime_vars.interaction_detected = false
+#func _on_area_2d_body_entered(body: Node2D) -> void:
+	#if body == player:
+		#player_in_range = true
+		#body.runtime_vars.interaction_detected = true
+#
+#func _on_area_2d_body_exited(body: Node2D) -> void:
+	#if body == player:
+		#player_in_range = false
+		#body.runtime_vars.interaction_detected = false
 
 
 func _on_quit_pressed() -> void:
@@ -69,4 +89,4 @@ func _on_quit_pressed() -> void:
 	if OS.get_name() == "Android":
 		player.phone_ui.visible = !player.phone_ui.visible
 	
-	get_tree().paused = !get_tree().paused
+	#get_tree().paused = !get_tree().paused

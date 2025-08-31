@@ -17,7 +17,7 @@ var runtime_vars: Dictionary = {
 	#"in_combo_fight": false,
 	#"combo_fight_points": 0,
 	"interaction_detected": false,
-	"obj_you_interact_with": null,
+	"obj_you_interacted_with": null,
 	"start_interact": false,
 	"npc_detected": false,
 	"npc_you_talk_to": null,
@@ -81,7 +81,7 @@ var dash_dir: Vector2 = Vector2.RIGHT
 @export var maxAmmo: int = 9
 @export var extraAmmo: int = 999
 
-@export var autoShoot: bool = false
+@export var autoShoot: bool = true
 @export_range(0, 0.5, 0.02) var shootingTime: float = 0.5
 @export_range(0, 1, 0.02) var reloadingTime: float = 1.0
 
@@ -129,6 +129,7 @@ func _ready() -> void:
 	
 	runtime_vars.jump_points = jumpPoints
 	runtime_vars.dash_points = dashPoints
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
@@ -181,7 +182,10 @@ func _on_npc_detector_body_exited(body: Node2D) -> void:
 func _on_interaction_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group(interactionGroup):
 		runtime_vars.interaction_detected = true
+		body.emit_signal("declare_interaction")
+		print("test")
 
 func _on_interaction_detector_body_exited(body: Node2D) -> void:
 	if body.is_in_group(interactionGroup):
 		runtime_vars.interaction_detected = false
+		body.emit_signal("undeclare_interaction")

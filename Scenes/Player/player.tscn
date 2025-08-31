@@ -39,16 +39,16 @@ size = Vector2(18, 34.5)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ythyg"]
 shader = ExtResource("2_qr1w5")
 shader_parameter/flashColor = Color(1, 1, 1, 1)
-shader_parameter/flashValue = 0.0
+shader_parameter/flashValue = 0.00415285
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omcea"]
 size = Vector2(21, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ahak"]
-size = Vector2(8, 96)
+size = Vector2(4, 88)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4no11"]
-size = Vector2(40, 4)
+size = Vector2(41, 4)
 
 [sub_resource type="Animation" id="Animation_yipag"]
 resource_name = "Attack1"
@@ -341,7 +341,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "jumpingState", "fallingState", "landingState", "dashingState", "attackingState", "shootingState", "reloadingState", "interactState", "talkingState", "damagingState", "deathState", "respawningState") groups=["Player"]]
 collision_layer = 256
-collision_mask = 458771
+collision_mask = 458769
 script = ExtResource("1_3wwtw")
 idleState = NodePath("StateMachine/Idle")
 walkingState = NodePath("StateMachine/Walk")
@@ -360,8 +360,6 @@ damagingState = NodePath("StateMachine/Damage")
 deathState = NodePath("StateMachine/Die")
 respawningState = NodePath("StateMachine/Respawn")
 bulletScene = ExtResource("13_88yj3")
-infiniteAmmo = true
-autoShoot = true
 shootingTime = 0.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -379,7 +377,7 @@ vframes = 11
 [node name="HitArea" type="Area2D" parent="PlayerSprite"]
 position = Vector2(17, 16)
 collision_layer = 256
-collision_mask = 196609
+collision_mask = 196608
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprite/HitArea"]
 position = Vector2(1.5, -2.75)
@@ -387,18 +385,22 @@ shape = SubResource("RectangleShape2D_omcea")
 disabled = true
 
 [node name="NPCDetector" type="Area2D" parent="PlayerSprite"]
+position = Vector2(0, 16)
 collision_layer = 2048
 collision_mask = 16777216
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprite/NPCDetector"]
-position = Vector2(0, 16)
+position = Vector2(4, 0)
 rotation = -1.5708
 shape = SubResource("RectangleShape2D_2ahak")
 
 [node name="InteractionDetector" type="Area2D" parent="PlayerSprite"]
+position = Vector2(0, 16)
+collision_layer = 4096
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprite/InteractionDetector"]
-position = Vector2(12, 16)
+position = Vector2(11.5, 0)
 shape = SubResource("RectangleShape2D_4no11")
 
 [node name="GunBarrel" type="Marker2D" parent="PlayerSprite"]

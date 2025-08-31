@@ -1,5 +1,7 @@
 extends Node
 
+var root_scene: Node2D
+
 var timeScale: float = 1.0
 var in_game: bool = false
 var is_chased : bool = false

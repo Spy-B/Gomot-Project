@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://phsxnlyl6nk1"]
+[gd_scene load_steps=37 format=4 uid="uid://phsxnlyl6nk1"]
 
 [ext_resource type="Script" uid="uid://cnf78ko7r6hcr" path="res://Scripts/LVLs/lvl.gd" id="1_rbo7i"]
 [ext_resource type="PackedScene" uid="uid://clppwcfehohc5" path="res://Scenes/LVLs/Parallax_Background_2.tscn" id="2_isc4c"]
@@ -13,6 +13,7 @@
 [ext_resource type="JSON" path="res://Dialogues/EzraDialogueTest.json" id="10_iui5o"]
 [ext_resource type="PackedScene" uid="uid://td8b3vyvnsod" path="res://Scenes/Interactions/Checkpoint/checkpoint_manager.tscn" id="10_jrcsv"]
 [ext_resource type="PackedScene" uid="uid://dyjqw2vjtpkxw" path="res://Scenes/Obstacles/spinning_obstacle.tscn" id="12_rbo7i"]
+[ext_resource type="Texture2D" uid="uid://thpxb5d8o0r8" path="res://Assets/water_particle_2.png" id="13_1dltn"]
 [ext_resource type="Texture2D" uid="uid://bcgg47piyu1ix" path="res://Assets/VFX/ParticlePack/spark_07.png" id="13_6ii1r"]
 [ext_resource type="Texture2D" uid="uid://cdjisxsv505md" path="res://Assets/VFX/ParticlePack/magic_03.png" id="13_ee1ov"]
 [ext_resource type="PackedScene" uid="uid://dby608arrc55k" path="res://Scenes/Interactions/camera_manager.tscn" id="13_f2wfy"]
@@ -21,9 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://bm1b02r7k7rvt" path="res://Assets/VFX/ParticlePack/circle_03.png" id="14_ee1ov"]
 [ext_resource type="PackedScene" uid="uid://odlluvrio0fy" path="res://Scenes/Player/player.tscn" id="14_qekjm"]
 [ext_resource type="PackedScene" uid="uid://bg3nobdym6tb" path="res://Scenes/Player/player_camera.tscn" id="15_nq3fu"]
-[ext_resource type="Texture2D" uid="uid://bk3ipmaetj1hl" path="res://Assets/VFX/Particle_Material.png" id="15_popyq"]
 [ext_resource type="PackedScene" uid="uid://dsbijqdyjddj5" path="res://Scenes/Obstacles/moving_platform.tscn" id="17_7yri8"]
 [ext_resource type="PackedScene" uid="uid://capx801wrk1vo" path="res://Scenes/Obstacles/swinging_pendulum.tscn" id="17_ee1ov"]
+[ext_resource type="Texture2D" uid="uid://bs5d76qwgx1om" path="res://Assets/VFX/ParticlePack/magic_05.png" id="17_hhrw2"]
 
 [sub_resource type="Curve2D" id="Curve2D_rbo7i"]
 _data = {
@@ -33,6 +34,14 @@ point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adhwj"]
 size = Vector2(40.36, 42.19)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1dltn"]
+radius = 9.35
+height = 71.2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p7leh"]
+radius = 11.2
+height = 111.5
 
 [sub_resource type="Curve2D" id="Curve2D_ee1ov"]
 _data = {
@@ -57,8 +66,9 @@ size = Vector2(20, 978)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wpkgx"]
 
-[node name="LVLAlpha" type="Node2D"]
+[node name="LVLAlpha" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_rbo7i")
+player = NodePath("Player")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("2_isc4c")]
 
@@ -106,7 +116,6 @@ curve = SubResource("Curve2D_rbo7i")
 texture = ExtResource("7_adhwj")
 textureScale = 0.04
 collisionShape = SubResource("RectangleShape2D_adhwj")
-visiblityNotifier = false
 
 [node name="CameraManagers" type="Node2D" parent="Interactions"]
 
@@ -129,36 +138,31 @@ position = Vector2(4352, 912)
 camera = NodePath("../../../Player/Camera2D")
 cameraOffset = Vector2(0, -100)
 
-[node name="Letter" parent="Interactions" node_paths=PackedStringArray("player") instance=ExtResource("7_7yri8")]
-position = Vector2(2624, 950)
+[node name="Letters" type="Node2D" parent="Interactions"]
+
+[node name="Letter" parent="Interactions/Letters" node_paths=PackedStringArray("player") instance=ExtResource("7_7yri8")]
+position = Vector2(507, 943)
 letterTexture = ExtResource("10_hhrw2")
 letterTextureScale = 0.035
-player = NodePath("../../Player")
-
-[node name="Letter2" parent="Interactions" node_paths=PackedStringArray("player") instance=ExtResource("7_7yri8")]
-position = Vector2(790, 943)
-letterTexture = ExtResource("10_hhrw2")
-letterTextureScale = 0.035
-player = NodePath("../../Player")
-
-[node name="Portal" type="Node2D" parent="Interactions"]
-process_mode = 4
-
-[node name="PortalManager" parent="Interactions/Portal" node_paths=PackedStringArray("portal_1", "portal_2", "player") instance=ExtResource("9_popyq")]
-portal_1 = NodePath("Portal")
-portal_2 = NodePath("Portal2")
 player = NodePath("../../../Player")
 
-[node name="Portal" parent="Interactions/Portal/PortalManager" node_paths=PackedStringArray("parent", "player") instance=ExtResource("10_adhwj")]
-position = Vector2(848, 928)
-direction = 1
-parent = NodePath("..")
-player = NodePath("../../../../Player")
+[node name="Portal" type="Node2D" parent="Interactions"]
 
-[node name="Portal2" parent="Interactions/Portal/PortalManager" node_paths=PackedStringArray("parent", "player") instance=ExtResource("10_adhwj")]
-position = Vector2(1552, 935)
-parent = NodePath("..")
-player = NodePath("../../../../Player")
+[node name="PortalManager" parent="Interactions/Portal" node_paths=PackedStringArray("portal_1", "portal_2") instance=ExtResource("9_popyq")]
+portal_1 = NodePath("Portal")
+portal_2 = NodePath("Portal2")
+
+[node name="Portal" parent="Interactions/Portal/PortalManager" instance=ExtResource("10_adhwj")]
+position = Vector2(720, 928)
+texture = ExtResource("13_1dltn")
+textureScale = 3.72
+collisionShape = SubResource("CapsuleShape2D_1dltn")
+
+[node name="Portal2" parent="Interactions/Portal/PortalManager" instance=ExtResource("10_adhwj")]
+position = Vector2(1021, 930)
+texture = ExtResource("13_1dltn")
+textureScale = 3.51
+collisionShape = SubResource("CapsuleShape2D_p7leh")
 
 [node name="Obstacles" type="Node2D" parent="."]
 show_behind_parent = true
@@ -186,12 +190,10 @@ texture = ExtResource("14_ee1ov")
 textureScale = 0.2
 collisionShape = SubResource("CircleShape2D_hhrw2")
 player = NodePath("../../Player")
-visiblityNotifier = false
 
 [node name="SwingingPendulum" parent="Obstacles" node_paths=PackedStringArray("player") instance=ExtResource("17_ee1ov")]
 position = Vector2(2336, 704)
-swingingCenterTexture = ExtResource("15_popyq")
-swingingCenterTextureScale = 0.2
+swingingCenterTexture = ExtResource("17_hhrw2")
 stickTexture = ExtResource("13_6ii1r")
 stickTextureScale = 0.4
 rotated = true
@@ -200,7 +202,6 @@ pendulumScale = 0.2
 collisionShape = SubResource("CircleShape2D_ee1ov")
 player = NodePath("../../Player")
 swingTime = 1.0
-visiblityNotifier = false
 
 [node name="SpinningObstacle" parent="Obstacles" node_paths=PackedStringArray("player") instance=ExtResource("12_rbo7i")]
 position = Vector2(3152, 960)
@@ -217,7 +218,6 @@ pendulum2Texture = ExtResource("14_ee1ov")
 pendulum2Scale = 0.15
 collisionShape2 = SubResource("CircleShape2D_adhwj")
 player = NodePath("../../Player")
-visiblityNotifier = false
 
 [node name="NPCs" type="Node2D" parent="."]
 
@@ -240,7 +240,7 @@ dialogueJson = ExtResource("10_iui5o")
 [node name="Player" parent="." node_paths=PackedStringArray("checkpointManager") instance=ExtResource("14_qekjm")]
 unique_name_in_owner = true
 position = Vector2(260, 912)
-collision_mask = 393361
+collision_mask = 393363
 checkpointManager = NodePath("../Interactions/Checkpoints/CheckpointManager")
 
 [node name="Camera2D" parent="Player" instance=ExtResource("15_nq3fu")]

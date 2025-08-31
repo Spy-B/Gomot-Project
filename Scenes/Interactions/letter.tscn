@@ -5,8 +5,7 @@
 [ext_resource type="FontFile" uid="uid://c6ru82xe18d6j" path="res://Assets/Fonts/BoldPixels1.4.ttf" id="3_tov30"]
 [ext_resource type="Theme" uid="uid://c7k57134accys" path="res://Resources/Themes/main_menu_buttons.theme" id="5_bxj2w"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_0elpo"]
-radius = 20.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tov30"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bxj2w"]
 
@@ -18,22 +17,26 @@ font_size = 32
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
-[node name="Letter" type="Node2D" groups=["Interaction"]]
+[node name="Letter" type="StaticBody2D" groups=["Interaction"]]
 process_mode = 3
-script = ExtResource("1_y3g3p")
-
-[node name="Area2D" type="Area2D" parent="."]
-disable_mode = 1
 collision_layer = 8
-collision_mask = 257
+collision_mask = 4096
+script = ExtResource("1_y3g3p")
+visiblityNotifier = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_0elpo")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tov30")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_bxj2w")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+scale = Vector2(50, 50)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 3
@@ -115,6 +118,4 @@ mouse_default_cursor_shape = 2
 theme = ExtResource("5_bxj2w")
 text = "Quit"
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="pressed" from="UI/Control/Quit" to="." method="_on_quit_pressed"]

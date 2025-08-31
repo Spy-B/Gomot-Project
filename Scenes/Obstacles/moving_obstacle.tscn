@@ -31,9 +31,10 @@ _data = {
 
 [node name="MovingObstacle" type="Path2D"]
 script = ExtResource("1_8jbfx")
+visiblityNotifier = false
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-progress = 64593.0
+progress = 65285.0
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
 remote_path = NodePath("../../Obstacle")
@@ -54,6 +55,7 @@ sprite_frames = SubResource("SpriteFrames_fij0r")
 shape = SubResource("CircleShape2D_fij0r")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Obstacle"]
+visible = false
 scale = Vector2(50, 50)
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="Obstacle/VisibleOnScreenNotifier2D"]

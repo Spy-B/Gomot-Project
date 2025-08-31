@@ -226,6 +226,7 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_10="PlayerBullet"
 2d_physics/layer_11="PlayerMeleeAttack"
 2d_physics/layer_12="FriendlyNPCDetector"
+2d_physics/layer_13="InteractionsDetector"
 2d_physics/layer_17="Enemy"
 2d_physics/layer_18="EnemyBullet"
 2d_physics/layer_19="EnemyMeleeAttack"
