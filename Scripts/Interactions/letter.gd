@@ -11,22 +11,20 @@ signal undeclare_interaction
 @export var animatedLetterSprite: SpriteFrames
 @export var animeName: StringName = "default"
 @export var letterTextureScale: float = 1.0
-
-@export var player: CharacterBody2D
+@export var collisionShape: Shape2D
 
 @export var visiblityNotifier: bool = true
 
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var ui: CanvasLayer = $UI
 @onready var texture_rect: TextureRect = $UI/Control/TextureRect
 @onready var label: Label = $UI/Control/Label
 @onready var quit: Button = $UI/Control/Quit
 
 @onready var visible_on_screen_notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
-
-var player_in_range: bool = false
 
 
 func _ready() -> void:
@@ -35,9 +33,6 @@ func _ready() -> void:
 	if OS.get_name() == "Android":
 		quit.visible = true
 
-#func _input(event: InputEvent) -> void:
-	#if event.is_action_pressed("interact") && player_in_range:
-		#_on_quit_pressed()
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
@@ -49,6 +44,7 @@ func _process(_delta: float) -> void:
 	
 	self.undeclare_interaction.connect(func() -> void:
 		Global.root_scene.player.runtime_vars.obj_you_interacted_with = null)
+
 
 func apply_properties() -> void:
 	if letterText:
@@ -65,28 +61,19 @@ func apply_properties() -> void:
 		sprite.scale.x = letterTextureScale
 		sprite.scale.y = letterTextureScale
 	
+	if collisionShape:
+		collision_shape.shape = collisionShape
+	
 	visible_on_screen_notifier.visible = visiblityNotifier
 
 func interact() -> void:
 	_on_quit_pressed()
 
-
-#func _on_area_2d_body_entered(body: Node2D) -> void:
-	#if body == player:
-		#player_in_range = true
-		#body.runtime_vars.interaction_detected = true
-#
-#func _on_area_2d_body_exited(body: Node2D) -> void:
-	#if body == player:
-		#player_in_range = false
-		#body.runtime_vars.interaction_detected = false
-
-
 func _on_quit_pressed() -> void:
 	ui.visible = !ui.visible
-	player.ui.interact_key.visible = !player.ui.interact_key.visible
+	Global.root_scene.player.ui.interact_key.visible = !Global.root_scene.player.ui.interact_key.visible
 	
 	if OS.get_name() == "Android":
-		player.phone_ui.visible = !player.phone_ui.visible
+		Global.root_scene.player.phone_ui.visible = !Global.root_scene.player.phone_ui.visible
 	
 	#get_tree().paused = !get_tree().paused

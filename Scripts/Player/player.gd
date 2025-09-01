@@ -183,7 +183,6 @@ func _on_interaction_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group(interactionGroup):
 		runtime_vars.interaction_detected = true
 		body.emit_signal("declare_interaction")
-		print("test")
 
 func _on_interaction_detector_body_exited(body: Node2D) -> void:
 	if body.is_in_group(interactionGroup):

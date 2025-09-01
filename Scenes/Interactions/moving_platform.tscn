@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dsbijqdyjddj5"]
 
-[ext_resource type="Script" uid="uid://dokhyde8mkft8" path="res://Scripts/Obstacles/moving_platform.gd" id="1_5pnn2"]
+[ext_resource type="Script" uid="uid://dokhyde8mkft8" path="res://Scripts/Interactions/moving_platform.gd" id="1_5pnn2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7gugs"]
 
@@ -9,7 +9,6 @@ size = Vector2(61, 31)
 
 [sub_resource type="Animation" id="Animation_xcw76"]
 resource_name = "Moving"
-length = 2.0
 loop_mode = 2
 step = 0.1
 tracks/0/type = "value"
@@ -19,7 +18,7 @@ tracks/0/path = NodePath("PathFollow2D:progress_ratio")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
 "values": [0.0, 1.0]
@@ -35,7 +34,7 @@ script = ExtResource("1_5pnn2")
 visiblityNotifier = false
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-progress = 406.0
+progress = 12080.0
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
 remote_path = NodePath("../../Platform")

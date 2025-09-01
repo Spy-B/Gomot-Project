@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://phsxnlyl6nk1"]
+[gd_scene load_steps=41 format=4 uid="uid://phsxnlyl6nk1"]
 
 [ext_resource type="Script" uid="uid://cnf78ko7r6hcr" path="res://Scripts/LVLs/lvl.gd" id="1_rbo7i"]
 [ext_resource type="PackedScene" uid="uid://clppwcfehohc5" path="res://Scenes/LVLs/Parallax_Background_2.tscn" id="2_isc4c"]
@@ -20,9 +20,11 @@
 [ext_resource type="PackedScene" uid="uid://cmdo4y67uis4f" path="res://Scenes/NPCs/NPC_1/npc_1.tscn" id="13_ondqr"]
 [ext_resource type="PackedScene" uid="uid://dls1ol8ea37ht" path="res://Scenes/Obstacles/moving_obstacle.tscn" id="14_6ii1r"]
 [ext_resource type="Texture2D" uid="uid://bm1b02r7k7rvt" path="res://Assets/VFX/ParticlePack/circle_03.png" id="14_ee1ov"]
+[ext_resource type="PackedScene" uid="uid://c5jykne82vv5x" path="res://Scenes/Interactions/elevator.tscn" id="14_jrcsv"]
 [ext_resource type="PackedScene" uid="uid://odlluvrio0fy" path="res://Scenes/Player/player.tscn" id="14_qekjm"]
+[ext_resource type="PackedScene" uid="uid://b2w5f1amljoj6" path="res://Scenes/Interactions/active_interaction_key.tscn" id="15_b3ecj"]
 [ext_resource type="PackedScene" uid="uid://bg3nobdym6tb" path="res://Scenes/Player/player_camera.tscn" id="15_nq3fu"]
-[ext_resource type="PackedScene" uid="uid://dsbijqdyjddj5" path="res://Scenes/Obstacles/moving_platform.tscn" id="17_7yri8"]
+[ext_resource type="PackedScene" uid="uid://dsbijqdyjddj5" path="res://Scenes/Interactions/moving_platform.tscn" id="17_7yri8"]
 [ext_resource type="PackedScene" uid="uid://capx801wrk1vo" path="res://Scenes/Obstacles/swinging_pendulum.tscn" id="17_ee1ov"]
 [ext_resource type="Texture2D" uid="uid://bs5d76qwgx1om" path="res://Assets/VFX/ParticlePack/magic_05.png" id="17_hhrw2"]
 
@@ -35,13 +37,20 @@ point_count = 2
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adhwj"]
 size = Vector2(40.36, 42.19)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_1dltn"]
+radius = 17.65
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1dltn"]
-radius = 9.35
-height = 71.2
+height = 70.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p7leh"]
-radius = 11.2
-height = 111.5
+height = 70.0
+
+[sub_resource type="Curve2D" id="Curve2D_jrcsv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -2, 2, 0, 0, 0, 0, -2, -286)
+}
+point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_ee1ov"]
 _data = {
@@ -140,11 +149,11 @@ cameraOffset = Vector2(0, -100)
 
 [node name="Letters" type="Node2D" parent="Interactions"]
 
-[node name="Letter" parent="Interactions/Letters" node_paths=PackedStringArray("player") instance=ExtResource("7_7yri8")]
+[node name="Letter" parent="Interactions/Letters" instance=ExtResource("7_7yri8")]
 position = Vector2(507, 943)
 letterTexture = ExtResource("10_hhrw2")
 letterTextureScale = 0.035
-player = NodePath("../../../Player")
+collisionShape = SubResource("CircleShape2D_1dltn")
 
 [node name="Portal" type="Node2D" parent="Interactions"]
 
@@ -163,6 +172,16 @@ position = Vector2(1021, 930)
 texture = ExtResource("13_1dltn")
 textureScale = 3.51
 collisionShape = SubResource("CapsuleShape2D_p7leh")
+
+[node name="Elevators" type="Node2D" parent="Interactions"]
+
+[node name="Elevator" parent="Interactions/Elevators" node_paths=PackedStringArray("key") instance=ExtResource("14_jrcsv")]
+position = Vector2(102, 930)
+curve = SubResource("Curve2D_jrcsv")
+key = NodePath("AIK")
+
+[node name="AIK" parent="Interactions/Elevators/Elevator" instance=ExtResource("15_b3ecj")]
+position = Vector2(83, 20)
 
 [node name="Obstacles" type="Node2D" parent="."]
 show_behind_parent = true

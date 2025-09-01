@@ -21,7 +21,7 @@ var speed: float = 1.0
 @export var visiblityNotifier: bool = true
 
 
-@onready var path_follower: PathFollow2D = $PathFollow2D
+@onready var path_follow: PathFollow2D = $PathFollow2D
 @onready var sprite: Sprite2D = $Platform/PlatformSprite
 @onready var animated_sprite: AnimatedSprite2D = $Platform/AnimatedSprite2D
 @onready var collision_shape: CollisionShape2D = $Platform/CollisionShape2D
@@ -42,7 +42,7 @@ func _process(_delta: float) -> void:
 		apply_properties()
 
 func _physics_process(_delta: float) -> void:
-	path_follower.progress += speed
+	path_follow.progress += speed
 
 
 func apply_properties() -> void:
