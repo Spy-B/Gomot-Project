@@ -7,13 +7,12 @@
 size = Vector2(61.74, 3.86)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lcc2e"]
-size = Vector2(56, 4)
+size = Vector2(40, 48)
 
 [node name="Elevator" type="Path2D"]
 script = ExtResource("1_7cpsn")
 texture = ExtResource("2_lcc2e")
 collisionShape = SubResource("RectangleShape2D_biota")
-visiblityNotifier = false
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 rotates = false
@@ -38,13 +37,8 @@ collision_layer = 8
 collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D/ElevatorActivationKey"]
+position = Vector2(0, -22)
 shape = SubResource("RectangleShape2D_lcc2e")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="AnimatableBody2D"]
-visible = false
-scale = Vector2(50, 50)
-
-[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="AnimatableBody2D/VisibleOnScreenNotifier2D"]
 
 [connection signal="body_entered" from="AnimatableBody2D/ElevatorActivationKey" to="." method="_on_elevator_activation_key_body_entered"]
 [connection signal="body_exited" from="AnimatableBody2D/ElevatorActivationKey" to="." method="_on_elevator_activation_key_body_exited"]

@@ -44,10 +44,10 @@ func _process(_delta: float) -> void:
 	
 	
 	self.declare_interaction.connect(func() -> void:
-		Global.root_scene.player.runtime_vars.obj_you_interacted_with = self)
+		Global.player.runtime_vars.obj_you_interacted_with = self)
 	
 	self.undeclare_interaction.connect(func() -> void:
-		Global.root_scene.player.runtime_vars.obj_you_interacted_with = null)
+		Global.player.runtime_vars.obj_you_interacted_with = null)
 
 func apply_properties() -> void:
 	if animatedSprite:

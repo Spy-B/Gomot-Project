@@ -1,9 +1,9 @@
 @tool
 extends Node2D
 
-var elevator_arrived: bool = true
+#var elevator_arrived: bool = true
 
-@export var speedScale: float = 1.0
+@export_range(0.1, 5, 0.1, "or_greater") var moveTime: float = 1.0
 
 @export_group("Properties")
 @export var texture: Texture
@@ -11,9 +11,8 @@ var elevator_arrived: bool = true
 @export var collisionShape: Shape2D
 
 @export_group("Others")
-@export var key: Node2D
-
-@export var visiblityNotifier: bool = true
+@export var activation_key: StaticBody2D
+#@export var visiblityNotifier: bool = true
 
 
 @onready var path_follow: PathFollow2D = $PathFollow2D
@@ -22,23 +21,26 @@ var elevator_arrived: bool = true
 @onready var elevator_sprite: Sprite2D = $AnimatableBody2D/Sprite2D
 @onready var collision_shape: CollisionShape2D = $AnimatableBody2D/CollisionShape2D
 
-@onready var activation_key_collision: CollisionShape2D = $AnimatableBody2D/ElevatorActivationKey/CollisionShape2D
-
-@onready var visible_on_screen_notifier: VisibleOnScreenNotifier2D = $AnimatableBody2D/VisibleOnScreenNotifier2D
+@onready var activation_area_collision: CollisionShape2D = $AnimatableBody2D/ElevatorActivationKey/CollisionShape2D
 
 
 func _ready() -> void:
-	#path_follow.progress = 0
-	#path_follow.progress_ratio = 0
-	
 	apply_properties()
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		apply_properties()
+	
+	else:
+		if activation_key:
+			activation_key.declare_interaction.connect(func() -> void:
+				Global.player.runtime_vars.obj_you_interacted_with = self)
+			
+			activation_key.undeclare_interaction.connect(func() -> void:
+				Global.player.runtime_vars.obj_you_interacted_with = null)
+		else:
+			printerr("Missing Activation Key -> [AIK]")
 
-#func _physics_process(_delta: float) -> void:
-	#pass
 
 func apply_properties() -> void:
 	if texture:
@@ -52,29 +54,28 @@ func apply_properties() -> void:
 		collision_shape.shape = collisionShape
 	
 	collision_shape.position.y = (elevator_sprite.texture.get_height() * elevator_sprite.scale.y) / 2
-	
-	visible_on_screen_notifier.visible = visiblityNotifier
 
 func interact() -> void:
-	var tween: Tween
+	activation_key.is_interacting = true
 	
-	activation_key_collision.set_deferred("set_disabled", true)
+	var tween: Tween
+	activation_area_collision.set_deferred("set_disabled", true)
 	
 	if self.curve != null:
 		if path_follow.progress_ratio == 0.0:
 			tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUINT)
-			tween.tween_property(path_follow, "progress_ratio", 1.0, 1.0)
+			tween.tween_property(path_follow, "progress_ratio", 1.0, moveTime)
 		
 		if path_follow.progress_ratio == 1.0:
 			tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUINT)
-			tween.tween_property(path_follow, "progress_ratio", 0.0, 1.0)
+			tween.tween_property(path_follow, "progress_ratio", 0.0, moveTime)
 
 
 func _on_elevator_activation_key_body_entered(body: Node2D) -> void:
-	if body == Global.root_scene.player:
+	if body == Global.player:
 		interact()
 
 
 func _on_elevator_activation_key_body_exited(body: Node2D) -> void:
-	if body == Global.root_scene.player:
-		activation_key_collision.set_deferred("set_disabled", false)
+	if body == Global.player:
+		activation_area_collision.set_deferred("set_disabled", false)

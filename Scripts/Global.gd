@@ -1,6 +1,8 @@
 extends Node
 
-var root_scene: Node2D
+var lvl_scene: Node2D
+var player: CharacterBody2D
+
 
 var timeScale: float = 1.0
 var in_game: bool = false

@@ -40,10 +40,10 @@ func _process(_delta: float) -> void:
 	
 	
 	self.declare_interaction.connect(func() -> void:
-		Global.root_scene.player.runtime_vars.obj_you_interacted_with = self)
+		Global.player.runtime_vars.obj_you_interacted_with = self)
 	
 	self.undeclare_interaction.connect(func() -> void:
-		Global.root_scene.player.runtime_vars.obj_you_interacted_with = null)
+		Global.player.runtime_vars.obj_you_interacted_with = null)
 
 
 func apply_properties() -> void:
@@ -71,9 +71,9 @@ func interact() -> void:
 
 func _on_quit_pressed() -> void:
 	ui.visible = !ui.visible
-	Global.root_scene.player.ui.interact_key.visible = !Global.root_scene.player.ui.interact_key.visible
+	Global.player.ui.interact_key.visible = !Global.player.ui.interact_key.visible
 	
 	if OS.get_name() == "Android":
-		Global.root_scene.player.phone_ui.visible = !Global.root_scene.player.phone_ui.visible
+		Global.player.phone_ui.visible = !Global.player.phone_ui.visible
 	
 	#get_tree().paused = !get_tree().paused

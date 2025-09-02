@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxrtguea5i00"]
+[gd_scene load_steps=7 format=3 uid="uid://cxrtguea5i00"]
 
 [ext_resource type="Script" uid="uid://ysdx7iqbppxm" path="res://Scripts/UIs/splash_screen.gd" id="1_7i40u"]
-[ext_resource type="Texture2D" uid="uid://dy2poqolk38ii" path="res://Default/RAFIA_LOGO.svg" id="3_47mih"]
+[ext_resource type="Texture2D" uid="uid://bel056ndoiotm" path="res://Assets/Rafia-SplashArt.png" id="2_r1p5o"]
+[ext_resource type="Texture2D" uid="uid://wd7tvmwvv7gu" path="res://Default/RAFIA_LOGO - Cuted.png" id="3_adn7g"]
+[ext_resource type="Texture2D" uid="uid://bxr07mkwh3sgr" path="res://Default/RAPK_Project_Logo.png" id="4_10ake"]
 [ext_resource type="FontFile" uid="uid://c6ru82xe18d6j" path="res://Assets/Fonts/BoldPixels1.4.ttf" id="4_q0drn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_f6uch"]
 font = ExtResource("4_q0drn")
 font_size = 42
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
 
 [node name="SplashScreen" type="Control"]
 layout_mode = 3
@@ -17,19 +21,45 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7i40u")
 
-[node name="GameArt" type="Sprite2D" parent="."]
-centered = false
+[node name="GameArt2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_r1p5o")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="GameStudio" type="Sprite2D" parent="."]
-position = Vector2(1744, 992)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_47mih")
+[node name="GameStudio" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -408.0
+offset_top = -136.0
+offset_right = -208.0
+offset_bottom = -56.63
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("3_adn7g")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="RapkProjectLogo" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(276, 52)
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("4_10ake")
 
 [node name="MadeWithLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 64.0
+offset_left = 208.0
 offset_top = 64.0
-offset_right = 398.0
+offset_right = 542.0
 offset_bottom = 103.0
 text = "Made With R.A.P.K"
 label_settings = SubResource("LabelSettings_f6uch")

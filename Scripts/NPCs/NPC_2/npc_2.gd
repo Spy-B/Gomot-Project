@@ -13,10 +13,6 @@ var status_history: Array = []
 
 @export_enum("Enemy", "Friendly") var NpcType: int = 0
 
-@export var ammoInMag: int = 9
-@export var maxAmmo: int = 9
-@export var extraAmmo: int = 999
-
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D

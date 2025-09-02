@@ -120,6 +120,7 @@ var health_bar_tween: Tween
 
 
 func _ready() -> void:
+	Global.player = self
 	state_machine.init(self, gun_barrel, animation_player, coyote_timer, jump_buffer_timer)
 	
 	if Global.started_new_game:

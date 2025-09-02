@@ -48,7 +48,7 @@ height = 70.0
 
 [sub_resource type="Curve2D" id="Curve2D_jrcsv"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -2, 2, 0, 0, 0, 0, -2, -286)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -292)
 }
 point_count = 2
 
@@ -75,9 +75,8 @@ size = Vector2(20, 978)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wpkgx"]
 
-[node name="LVLAlpha" type="Node2D" node_paths=PackedStringArray("player")]
+[node name="LVLAlpha" type="Node2D"]
 script = ExtResource("1_rbo7i")
-player = NodePath("Player")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("2_isc4c")]
 
@@ -175,13 +174,14 @@ collisionShape = SubResource("CapsuleShape2D_p7leh")
 
 [node name="Elevators" type="Node2D" parent="Interactions"]
 
-[node name="Elevator" parent="Interactions/Elevators" node_paths=PackedStringArray("key") instance=ExtResource("14_jrcsv")]
-position = Vector2(102, 930)
+[node name="Elevator" parent="Interactions/Elevators" node_paths=PackedStringArray("activation_key") instance=ExtResource("14_jrcsv")]
+position = Vector2(96, 932)
 curve = SubResource("Curve2D_jrcsv")
-key = NodePath("AIK")
+moveTime = 2.0
+activation_key = NodePath("AIK")
 
 [node name="AIK" parent="Interactions/Elevators/Elevator" instance=ExtResource("15_b3ecj")]
-position = Vector2(83, 20)
+position = Vector2(71, 20)
 
 [node name="Obstacles" type="Node2D" parent="."]
 show_behind_parent = true
@@ -242,18 +242,16 @@ player = NodePath("../../Player")
 
 [node name="Enemies" type="Node2D" parent="NPCs"]
 
-[node name="NPC" parent="NPCs/Enemies" node_paths=PackedStringArray("player") instance=ExtResource("13_ondqr")]
+[node name="NPC" parent="NPCs/Enemies" instance=ExtResource("13_ondqr")]
 position = Vector2(4652, 831)
 NpcType = 1
-player = NodePath("../../../Player")
 dialogueJson = ExtResource("10_iui5o")
 
 [node name="Friendly" type="Node2D" parent="NPCs"]
 
-[node name="NPC" parent="NPCs/Friendly" node_paths=PackedStringArray("player") instance=ExtResource("13_ondqr")]
+[node name="NPC" parent="NPCs/Friendly" instance=ExtResource("13_ondqr")]
 position = Vector2(1245, 919)
 NpcType = 1
-player = NodePath("../../../Player")
 dialogueJson = ExtResource("10_iui5o")
 
 [node name="Player" parent="." node_paths=PackedStringArray("checkpointManager") instance=ExtResource("14_qekjm")]
