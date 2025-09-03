@@ -45,6 +45,8 @@ var runtime_vars: Dictionary = {
 @export var respawningState: State
 
 
+@export_category("Player Abilities")
+
 @export_group("Walking Ability")
 @export var walkingAbility: bool = true
 @export var walkSpeed: int = 120

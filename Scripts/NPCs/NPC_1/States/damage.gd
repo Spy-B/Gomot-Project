@@ -1,10 +1,4 @@
 extends NPCsState
-#NOTE: Complete Damage Functionalities
-
-@export var idleState: NPCsState
-@export var wanderingState: NPCsState
-@export var chasingState: NPCsState
-@export var deathState: NPCsState
 
 var damaging_anime_finished: bool = false
 var previous_state: NPCsState
@@ -25,8 +19,8 @@ func enter() -> void:
 	
 	previous_state = parent.status_history.back()
 	
-	if previous_state == idleState || previous_state == wanderingState:
-		previous_state = chasingState
+	if previous_state == parent.idleState || previous_state == parent.wanderingState:
+		previous_state = parent.chasingState
 
 func process_frame(_delta: float) -> NPCsState:
 	if damaging_anime_finished && parent.health > 0:
@@ -35,7 +29,7 @@ func process_frame(_delta: float) -> NPCsState:
 	
 	elif damaging_anime_finished && parent.health <= 0:
 		damaging_anime_finished = false
-		return deathState
+		return parent.deathState
 	
 	return null
 

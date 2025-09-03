@@ -9,7 +9,7 @@ radius = 1.0
 
 [node name="NPCBullet" type="Area2D"]
 collision_layer = 131072
-collision_mask = 65793
+collision_mask = 257
 script = ExtResource("1_lv1qe")
 bulletLifeTime = 4.0
 

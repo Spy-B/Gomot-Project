@@ -1,20 +1,12 @@
 extends NPCsState
 
-@export var idleState: NPCsState
-@export var wanderingState: NPCsState
-@export var cooldownState: NPCsState
-@export var shootingState: NPCsState
-@export var reloadingState: NPCsState
-@export var talkingState: NPCsState
-@export var damagingState: NPCsState
-@export var deathState: NPCsState
-
 @export_range(0, 10, 0.5) var cooldownPeriod: float = 5.0
 @onready var cooldown_period_timer: Timer = $"../../Timers/CooldownPeriodTimer"
 
 func enter() -> void:
+	print("[Enemy][State]: Chasing")
 	super()
-	#print("[Enemy][State]: Chase")
+	
 	parent.status_history.append(self)
 	
 	cooldown_period_timer.wait_time = cooldownPeriod
@@ -28,15 +20,15 @@ func process_physics(delta: float) -> NPCsState:
 	if !parent.is_on_floor():
 		parent.velocity.y += gravity * delta
 	
-	parent.player_pos = (parent.player.global_position - parent.global_position).normalized()
+	parent.player_pos = (Global.player.global_position - parent.global_position).normalized()
 	
 	if parent.player_pos > Vector2(0, 0):
-		dir = 1
+		parent.dir = 1
 	elif parent.player_pos < Vector2(0, 0):
-		dir = -1
+		parent.dir = -1
 	
-	parent.velocity.x = walkSpeed * dir
-	sprite.scale.x = abs(sprite.scale.x) * dir
+	parent.velocity.x = parent.walkSpeed * parent.dir
+	sprite.scale.x = abs(sprite.scale.x) * parent.dir
 	
 	parent.move_and_slide()
 	
@@ -44,12 +36,12 @@ func process_physics(delta: float) -> NPCsState:
 
 func process_frame(_delta: float) -> NPCsState:
 	if parent.damaged:
-		return damagingState
+		return parent.damagingState
 	
-	if parent.shoot_ray_cast.get_collider() == parent.player:
-		return shootingState
+	if parent.shoot_ray_cast.get_collider() == Global.player:
+		return parent.shootingState
 	
 	if !parent.player_detected: 
-		return cooldownState
+		return parent.cooldownState
 	
 	return null

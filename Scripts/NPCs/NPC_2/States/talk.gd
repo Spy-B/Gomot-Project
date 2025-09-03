@@ -1,19 +1,13 @@
 extends NPCsState
 
-@export var idleState: NPCsState
-@export var wanderingState: NPCsState
-@export var chasingState: NPCsState
-@export var shootingState: NPCsState
-@export var reloadingState: NPCsState
-@export var deathState: NPCsState
-
 @onready var dialogue_box: Control = $"../../UI/DialogueBox"
 @onready var ez_dialogue: EzDialogue = $"../../UI/DialogueBox/EzDialogue"
 
 func enter() -> void:
+	print("[Enemy][State]: Talk")
 	super()
 	animation.speed_scale = 0.5
-	#print("[Enemy][State]: Talk")
+	
 	
 	parent.player.runtime_vars.is_in_dialogue = true
 	parent.player.runtime_vars.npc_you_talk_to = parent
@@ -25,7 +19,7 @@ func process_input(_event: InputEvent) -> NPCsState:
 
 func process_frame(_delta: float) -> NPCsState:
 	if !parent.player.runtime_vars.is_in_dialogue:
-		return idleState
+		return parent.idleState
 	
 	return null
 

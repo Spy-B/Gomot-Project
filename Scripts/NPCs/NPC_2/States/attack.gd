@@ -1,13 +1,5 @@
 extends NPCsState
 
-@export var idleState: NPCsState
-@export var wanderingState: NPCsState
-@export var chasingState: NPCsState
-@export var reloadingState: NPCsState
-@export var talkingState: NPCsState
-@export var damagingState: NPCsState
-@export var deathState: NPCsState
-
 @export var bulletScene: PackedScene
 @export_range(0, 1, 0.05) var fireRate: float = 0.5
 
@@ -26,10 +18,10 @@ func process_input(_event: InputEvent) -> NPCsState:
 
 func process_frame(_delta: float) -> NPCsState:
 	if parent.damaged:
-		return damagingState
+		return parent.damagingState
 	
 	if !parent.shoot_ray_cast.get_collider() == parent.player && parent.health > 0:
-		return idleState
+		return parent.idleState
 	
 	return null
 

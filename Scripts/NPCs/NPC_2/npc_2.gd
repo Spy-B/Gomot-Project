@@ -11,7 +11,27 @@ var player_pos: Vector2
 
 var status_history: Array = []
 
+@export_group("NPC States")
+@export var idleState: NPCsState
+@export var wanderingState: NPCsState
+@export var chasingState: NPCsState
+@export var cooldownState: NPCsState
+@export var AttackingState: NPCsState
+@export var talkingState: NPCsState
+@export var damagingState: NPCsState
+@export var deathState: NPCsState
+
 @export_enum("Enemy", "Friendly") var NpcType: int = 0
+
+@export_group("Movement Ability")
+@export var walkSpeed: int = 100
+@export var runSpeed: int = 200
+var dir: int = 1
+
+##Dialogue System
+@export_group("Others")
+@export var dialogueJson: JSON
+@onready var state: Dictionary = {}
 
 
 @onready var sprite: Sprite2D = $Sprite2D
@@ -34,13 +54,6 @@ var status_history: Array = []
 #@onready var cooldown_period_timer: Timer = $Timers/CooldownPeriodTimer
 
 @onready var health_bar: TextureProgressBar = $TextureProgressBar
-
-##Dialogue System
-@export var dialogueJson: JSON
-@onready var state: Dictionary = {}
-
-#var starting_dialogue_pos: Vector2
-#@onready var dialogue_position: Marker2D = $Sprite2D/DialoguePosition
 
 
 func _ready() -> void:

@@ -11,8 +11,6 @@ var shooter: Node = null
 @export var followLvlTimeScale: bool = false
 @export var followPlayerTimeScale: bool = false
 
-@export var playerGroup: String = "Player"
-
 @onready var timer: Timer = $Timer
 
 func _ready() -> void:
@@ -29,11 +27,8 @@ func _physics_process(delta: float) -> void:
 	position += motion * delta # * timeScale
 
 func _on_Bullet_body_entered(body: Node2D) -> void:
-	if body == shooter:
-		return
-	
-	if body.is_in_group(playerGroup):
-		if body.just_respawn:
+	if body == Global.player:
+		if body.runtime_vars.just_respawn:
 			return
 		
 		body.health -= 15

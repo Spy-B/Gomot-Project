@@ -76,5 +76,5 @@ func _on_hit_area_body_entered(body: Node2D) -> void:
 		body.health -= attackDamage
 		body.damaged = true
 		body.damage_value = attackDamage
-		parent.combo_fight_points += 1
+		#parent.runtime_vars.combo_fight_points += 1
 		print("[Enemy] -> [Health]: ", attackDamage)

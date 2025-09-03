@@ -1,13 +1,5 @@
 extends NPCsState
 
-@export var idleState: NPCsState
-@export var wanderingState: NPCsState
-@export var chasingState: NPCsState
-@export var shootingState: NPCsState
-@export var talkingState: NPCsState
-@export var damagingState: NPCsState
-@export var deathState: NPCsState
-
 @export_range(0, 1, 0.02) var reloadingTime: float = 1.0
 
 @onready var reloading_timer: Timer = $"../../Timers/ReloadingTimer"
@@ -15,8 +7,9 @@ var can_fire: bool = true
 var reloaded: bool = false
 
 func enter() -> void:
+	print("[Enemy][State]: Reloading")
 	super()
-	#print("[Enemy][State]: Reload")
+	
 	parent.status_history.append(self)
 	
 	can_fire = false
@@ -26,10 +19,10 @@ func enter() -> void:
 
 func process_frame(_delta: float) -> NPCsState:
 	if parent.damaged:
-		return damagingState
+		return parent.damagingState
 	
 	if reloaded:
-		return idleState
+		return parent.idleState
 	
 	return null
 

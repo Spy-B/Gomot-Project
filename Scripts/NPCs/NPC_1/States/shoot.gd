@@ -1,13 +1,5 @@
 extends NPCsState
 
-@export var idleState: NPCsState
-@export var wanderingState: NPCsState
-@export var chasingState: NPCsState
-@export var reloadingState: NPCsState
-@export var talkingState: NPCsState
-@export var damagingState: NPCsState
-@export var deathState: NPCsState
-
 @export var bulletScene: PackedScene
 @export_range(0, 1, 0.05) var fireRate: float = 0.5
 
@@ -15,7 +7,7 @@ extends NPCsState
 
 
 func enter() -> void:
-	#print("[Enemy][State]: Shoot")
+	print("[Enemy][State]: Shooting")
 	parent.status_history.append(self)
 	
 	shooting_timer.wait_time = fireRate
@@ -26,10 +18,10 @@ func process_input(_event: InputEvent) -> NPCsState:
 
 func process_frame(_delta: float) -> NPCsState:
 	if parent.damaged:
-		return damagingState
+		return parent.damagingState
 	
-	if !parent.shoot_ray_cast.get_collider() == parent.player && parent.health > 0:
-		return idleState
+	if !parent.shoot_ray_cast.get_collider() == Global.player && parent.health > 0:
+		return parent.idleState
 	
 	#if parent.ammoInMag <= 0:
 		#return reloadingState
@@ -47,13 +39,13 @@ func process_physics(delta: float) -> NPCsState:
 	return null
 
 func _on_shooting_timer_timeout() -> void:
-	if parent.shoot_ray_cast.get_collider() == parent.player:
+	if parent.shoot_ray_cast.get_collider() == Global.player:
 		animation.play("Shooting")
 		
 		var bullet: Area2D = bulletScene.instantiate(PackedScene.GEN_EDIT_STATE_DISABLED)
 		bullet.global_position = gun_barrel.global_position
 		bullet.global_rotation = gun_barrel.global_rotation
-		bullet.dir = dir
+		bullet.dir = parent.dir
 		
 		get_parent().add_child(bullet)
 		

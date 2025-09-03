@@ -29,7 +29,7 @@ func _on_body_entered(body: Node2D) -> void:
 		body.damaged = true
 		body.damage_value = damage_value
 		print("[Enemy] -> [Health]: -15")
-		shooter.combo_fight_points += 1
+		#shooter.runtime_vars.combo_fight_points += 1
 		
 		
 		if !body.player_detected:
