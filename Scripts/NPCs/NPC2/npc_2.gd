@@ -11,6 +11,8 @@ var player_pos: Vector2
 
 var states_history: Array = []
 
+@export_enum("Enemy", "Friendly") var NpcType: int = 0
+
 @export_group("NPC States")
 @export var idleState: NPCsState
 @export var wanderingState: NPCsState
@@ -21,7 +23,7 @@ var states_history: Array = []
 @export var damagingState: NPCsState
 @export var deathState: NPCsState
 
-@export_enum("Enemy", "Friendly") var NpcType: int = 0
+@export_category("Npc Abilities")
 
 @export_group("Movement Ability")
 @export var walkSpeed: int = 100

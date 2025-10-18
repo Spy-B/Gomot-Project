@@ -8,7 +8,7 @@ func enter() -> void:
 	
 	parent.shoot_ray_cast.enabled = false
 	parent.player_detector.enabled = false
-	parent.shootingState.shooting_timer.stop()
+	parent.shooting_timer.stop()
 	
 	Global.saving_slots.slot1.enemies_killed.append(parent.get_rid())
 	Global.save_game()

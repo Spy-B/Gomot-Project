@@ -2,7 +2,11 @@ extends Area2D
 
 var motion: Vector2 = Vector2.ZERO
 var dir: int = 1
-var shooter: Node = null
+var shooter: CharacterBody2D = null
+
+
+@export var damage_value: int = 15
+@export var target: String
 
 @export var speed: int = 1000
 @export_range(1.0, 10.0, 0.5) var bulletLifeTime: float = 1.0
@@ -11,7 +15,9 @@ var shooter: Node = null
 @export var followLvlTimeScale: bool = false
 @export var followPlayerTimeScale: bool = false
 
+
 @onready var timer: Timer = $Timer
+
 
 func _ready() -> void:
 	motion = Vector2(speed, 0).rotated(rotation)

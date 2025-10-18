@@ -18,7 +18,7 @@ func enter() -> void:
 	reloading_timer.start()
 
 func process_frame(_delta: float) -> NPCsState:
-	if parent.damaged:
+	if parent.runtime_vars.damaged:
 		return parent.damagingState
 	
 	if reloaded:

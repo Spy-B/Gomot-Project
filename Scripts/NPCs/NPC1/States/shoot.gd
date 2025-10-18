@@ -12,10 +12,10 @@ func process_input(_event: InputEvent) -> NPCsState:
 	return null
 
 func process_frame(_delta: float) -> NPCsState:
-	if parent.damaged:
+	if parent.runtime_vars.damaged:
 		return parent.damagingState
 	
-	if !parent.shoot_ray_cast.get_collider() == Global.player && parent.health > 0:
+	if !parent.shoot_ray_cast.get_collider() == Global.player && parent.runtime_vars.health > 0:
 		return parent.idleState
 	
 	#if parent.ammoInMag <= 0:
@@ -27,7 +27,7 @@ func process_physics(delta: float) -> NPCsState:
 	if !parent.is_on_floor():
 		parent.velocity.y += gravity * delta
 	
-	parent.velocity.x = lerp(parent.velocity.x, 0.0, parent.movementWeight)
+	parent.velocity.x = lerp(parent.velocity.x, 0.0, parent.runtime_vars.movementWeight)
 	
 	parent.move_and_slide()
 	

@@ -1,5 +1,16 @@
 extends CharacterBody2D
 
+var runtime_vars: Dictionary = {
+	"movementWeight": 0.2,
+	"health": 100,
+	"player_detected": false,
+	"cool_down": true,
+	"damaged": false,
+	"damage_value": 0,
+	"waiting_time": 0.0,
+	"player_pos": Vector2(0, 0),
+}
+
 var movementWeight: float = 0.2
 var health: int = 100
 var player_detected: bool = false
@@ -36,7 +47,7 @@ var dir: int = 1
 @export var maxAmmo: int = 9
 @export var extraAmmo: int = 999
 @export_range(0, 1, 0.05) var fireRate: float = 0.5
-@export_range(0, 100, 5, "or_greater") var hitDamage: int = 25
+#@export_range(0, 100, 5, "or_greater") var hitDamage: int = 25
 
 @export_group("Dialogue System")
 @export var dialogueJson: JSON

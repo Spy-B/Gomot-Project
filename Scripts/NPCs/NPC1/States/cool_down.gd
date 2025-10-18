@@ -11,13 +11,13 @@ func enter() -> void:
 	cooldown_period_timer.start()
 
 func process_frame(_delta: float) -> NPCsState:
-	if parent.damaged:
+	if parent.runtime_vars.damaged:
 		return parent.damagingState
 	
-	if parent.player_detected:
+	if parent.runtime_vars.player_detected:
 		return parent.chasingState
 	
-	if parent.cool_down:
+	if parent.runtime_vars.cool_down:
 		return parent.idleState
 	
 	return null
@@ -26,11 +26,11 @@ func process_physics(delta: float) -> NPCsState:
 	if !parent.is_on_floor():
 		parent.velocity.y += gravity * delta
 	
-	parent.player_pos = (parent.player.global_position - parent.global_position).normalized()
+	parent.runtime_vars.player_pos = (parent.player.global_position - parent.global_position).normalized()
 	
-	if parent.player_pos > Vector2(0, 0):
+	if parent.runtime_vars.player_pos > Vector2(0, 0):
 		parent.dir = 1
-	elif parent.player_pos < Vector2(0, 0):
+	elif parent.runtime_vars.player_pos < Vector2(0, 0):
 		parent.dir = -1
 	
 	parent.velocity.x = parent.walkSpeed * parent.dir
@@ -43,6 +43,6 @@ func process_physics(delta: float) -> NPCsState:
 
 func _on_cooldown_period_timer_timeout() -> void:
 	parent.player_detector.target_position.x = 250.0
-	parent.cool_down = true
+	parent.runtime_vars.cool_down = true
 	
 	cooldown_period_timer.stop()

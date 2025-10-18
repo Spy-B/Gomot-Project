@@ -16,7 +16,6 @@ var shooter: CharacterBody2D = null
 @export var followPlayerTimeScale: bool = false
 
 
-@onready var arrow_sprite: Sprite2D = $Sprite2D
 @onready var timer: Timer = $Timer
 
 
@@ -27,29 +26,22 @@ func _ready() -> void:
 	timer.start()
 
 func _physics_process(delta: float) -> void:
-	await get_tree().create_timer(0.35).timeout
-	position += motion * delta
-	arrow_sprite.visible = true
-
-
-func _on_body_entered(body: Node2D) -> void:
-	if body == shooter:
-		return
+	if followLvlTimeScale:
+		timeScale = Global.timeScale
+	elif followLvlTimeScale:
+		timeScale = shooter.bulletTimeScale
 	
-	if body.is_in_group(target):
-		#body.health -= damage_value
-		body.runtime_vars.damaged = true
-		body.runtime_vars.damage_value = damage_value
-		print("[Enemy] -> [Health]: -15")
-		#shooter.runtime_vars.combo_fight_points += 1
+	position += motion * delta # * timeScale
+
+func _on_Bullet_body_entered(body: Node2D) -> void:
+	if body == Global.player:
+		if body.runtime_vars.just_respawn:
+			return
 		
-		
-		if !body.runtime_vars.player_detected:
-			body.runtime_vars.player_detected = true
-			body.runtime_vars.cool_down = false
+		body.health -= 15
+		body.camera.shake(0.1, Vector2(2.0, 2.0))
 	
 	queue_free()
-
 
 func _on_timer_timeout() -> void:
 	queue_free()
