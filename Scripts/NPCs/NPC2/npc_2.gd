@@ -6,19 +6,9 @@ var runtime_vars: Dictionary = {
 	"player_detected": false,
 	"cool_down": false,
 	"damaged": false,
-	"damage_value": 0,
 	"waiting_time": 0.0,
 	"player_pos": Vector2(0, 0),
 }
-
-# var movementWeight: float = 0.2
-# var health: int = 100
-# var player_detected: bool = false
-# var cool_down: bool = true
-# var damaged: bool = false
-# var damage_value: int
-# var waiting_time: float
-# var player_pos: Vector2
 
 var states_history: Array = []
 
@@ -43,10 +33,12 @@ var dir: int = 1
 
 @export_group("Attack Ability")
 @export_range(0, 10, 0.5) var attackRate: float = 1.0
-@export_range(0, 100, 5) var hitDamage: int = 25
+@export_range(0, 100, 5) var damageValue: int = 25
 
 ##Dialogue System
 @export_group("Others")
+@export var health: int = 100
+
 @export var dialogueJson: JSON
 @onready var state: Dictionary = {}
 

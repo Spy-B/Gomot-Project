@@ -3,12 +3,14 @@ extends Node2D
 
 #var elevator_arrived: bool = true
 
-@export_range(0.1, 5, 0.1, "or_greater") var speedScale: float = 1.0
+@export_range(0.1, 5.0, 0.1, "or_greater") var speedScale: float = 1.0
+@export_range(0.0, 1.0, 0.1) var MovementPath: float = 0.0
 
 @export_group("Properties")
 @export var texture: Texture
 @export var textureScale: float = 1.0
 @export var collisionShape: Shape2D
+@export var rotatedCollision: bool = true
 
 @export_group("Others")
 @export var activation_key: StaticBody2D
@@ -30,6 +32,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		apply_properties()
+
+		if self.curve != null:
+			path_follow.progress_ratio = MovementPath
 	
 	else:
 		if activation_key:
@@ -52,6 +57,10 @@ func apply_properties() -> void:
 	
 	if collisionShape:
 		collision_shape.shape = collisionShape
+		if rotatedCollision:
+			collision_shape.rotation_degrees = 90.0
+		else:
+			collision_shape.rotation_degrees = 0.0
 	
 	collision_shape.position.y = (elevator_sprite.texture.get_height() * elevator_sprite.scale.y) / 2
 

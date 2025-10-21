@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://phsxnlyl6nk1"]
+[gd_scene load_steps=42 format=4 uid="uid://phsxnlyl6nk1"]
 
 [ext_resource type="Script" uid="uid://cnf78ko7r6hcr" path="res://Scripts/LVLs/lvl.gd" id="1_rbo7i"]
 [ext_resource type="PackedScene" uid="uid://clppwcfehohc5" path="res://Scenes/LVLs/Parallax_Background_2.tscn" id="2_isc4c"]
@@ -26,11 +26,9 @@
 [ext_resource type="PackedScene" uid="uid://bg3nobdym6tb" path="res://Scenes/Player/player_camera.tscn" id="15_nq3fu"]
 [ext_resource type="PackedScene" uid="uid://dsbijqdyjddj5" path="res://Scenes/Interactions/moving_platform.tscn" id="17_7yri8"]
 [ext_resource type="PackedScene" uid="uid://capx801wrk1vo" path="res://Scenes/Obstacles/swinging_pendulum.tscn" id="17_ee1ov"]
-[ext_resource type="Texture2D" uid="uid://bs5d76qwgx1om" path="res://Assets/VFX/ParticlePack/magic_05.png" id="17_hhrw2"]
 [ext_resource type="PackedScene" uid="uid://bqsku42hjp1ed" path="res://Scenes/NPCs/NPC2/npc_2.tscn" id="25_qekjm"]
 [ext_resource type="JSON" path="res://Dialogues/EzraDialogueTest.json" id="26_ondqr"]
 [ext_resource type="PackedScene" uid="uid://dfajo8txid8ur" path="res://Scenes/Interactions/void.tscn" id="28_b3ecj"]
-[ext_resource type="Texture2D" uid="uid://du5scffh4g2tm" path="res://Assets/Water_particle_1.png" id="29_j4gxf"]
 
 [sub_resource type="Curve2D" id="Curve2D_rbo7i"]
 _data = {
@@ -52,7 +50,7 @@ height = 70.0
 
 [sub_resource type="Curve2D" id="Curve2D_jrcsv"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -292)
+"points": PackedVector2Array(0, 0, 0, 0, 96, 930, 0, 0, 0, 0, 96, 642)
 }
 point_count = 2
 
@@ -76,15 +74,6 @@ radius = 32.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fm782"]
 size = Vector2(20, 978)
-
-[sub_resource type="Curve2D" id="Curve2D_ondqr"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 416, 608, 0, 0, 0, 0, 416, 880)
-}
-point_count = 2
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_qekjm"]
-radius = 15.1
 
 [node name="LVLAlpha" type="Node2D"]
 script = ExtResource("1_rbo7i")
@@ -193,12 +182,12 @@ collisionShape = SubResource("CapsuleShape2D_p7leh")
 [node name="Elevators" type="Node2D" parent="Interactions"]
 
 [node name="Elevator" parent="Interactions/Elevators" node_paths=PackedStringArray("activation_key") instance=ExtResource("14_jrcsv")]
-position = Vector2(96, 932)
 curve = SubResource("Curve2D_jrcsv")
+speedScale = 0.6
 activation_key = NodePath("AIK")
 
 [node name="AIK" parent="Interactions/Elevators/Elevator" instance=ExtResource("15_b3ecj")]
-position = Vector2(71, 20)
+position = Vector2(180, 949)
 
 [node name="Obstacles" type="Node2D" parent="."]
 show_behind_parent = true
@@ -228,8 +217,9 @@ collisionShape = SubResource("CircleShape2D_hhrw2")
 player = NodePath("../../Player")
 
 [node name="SwingingPendulum" parent="Obstacles" node_paths=PackedStringArray("player") instance=ExtResource("17_ee1ov")]
-position = Vector2(2336, 704)
-swingingCenterTexture = ExtResource("17_hhrw2")
+position = Vector2(2376, 668)
+swingingCenterTexture = ExtResource("13_ee1ov")
+swingingCenterTextureScale = 0.05
 stickTexture = ExtResource("13_6ii1r")
 stickTextureScale = 0.4
 rotated = true
@@ -240,7 +230,7 @@ player = NodePath("../../Player")
 swingTime = 1.0
 
 [node name="SpinningObstacle" parent="Obstacles" node_paths=PackedStringArray("player") instance=ExtResource("12_rbo7i")]
-position = Vector2(3152, 960)
+position = Vector2(3091, 937)
 spiningCenterTexture = ExtResource("13_ee1ov")
 spiningCenterTextureScale = 0.05
 stickTexture = ExtResource("13_6ii1r")
@@ -260,13 +250,13 @@ player = NodePath("../../Player")
 [node name="Enemies" type="Node2D" parent="NPCs"]
 
 [node name="NPC2" parent="NPCs/Enemies" instance=ExtResource("25_qekjm")]
+process_mode = 4
+visible = false
 position = Vector2(952, 932)
 dialogueJson = ExtResource("26_ondqr")
 
 [node name="NPC" parent="NPCs/Enemies" instance=ExtResource("13_ondqr")]
-process_mode = 4
-visible = false
-position = Vector2(583, 929)
+position = Vector2(825, 948)
 dialogueJson = ExtResource("26_ondqr")
 
 [node name="Friendly" type="Node2D" parent="NPCs"]
@@ -307,12 +297,5 @@ visible = false
 color = Color(0.705882, 0.705882, 0.705882, 1)
 
 [node name="TimeScaleTimer" type="Timer" parent="."]
-
-[node name="MovingObstacle" parent="." node_paths=PackedStringArray("player") instance=ExtResource("14_6ii1r")]
-curve = SubResource("Curve2D_ondqr")
-texture = ExtResource("29_j4gxf")
-textureScale = 1.72
-collisionShape = SubResource("CircleShape2D_qekjm")
-player = NodePath("../Player")
 
 [connection signal="timeout" from="TimeScaleTimer" to="." method="_on_time_scale_timer_timeout"]

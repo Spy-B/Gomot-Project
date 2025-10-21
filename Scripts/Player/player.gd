@@ -16,6 +16,7 @@ var runtime_vars: Dictionary = {
 	# TODO this functionality is not done yet
 	#"in_combo_fight": false,
 	#"combo_fight_points": 0,
+
 	"interaction_detected": false,
 	"interacting_with": null,
 	"start_interact": false,
@@ -104,6 +105,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var health_bar_tween: Tween
 
 @export var checkpointManager: Node
+
 
 @onready var upper_body_sprite: Sprite2D = $UpperBodySprite
 #@onready var lower_body_sprite: Sprite2D = $LowerBodySprite

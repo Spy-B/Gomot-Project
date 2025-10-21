@@ -11,6 +11,10 @@ func process_frame(_delta: float) -> State:
 		parent.health_bar_tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 		parent.health_bar_tween.tween_property(parent.ui.health_bar, "value", parent.health, 0.05)
 	
+
+	if parent.health <= 0:
+		return parent.deathState
+		
 	var movement: float = Input.get_axis("move_left", "move_right") * parent.runSpeed
 	
 	if parent.is_on_floor():
@@ -21,4 +25,4 @@ func process_frame(_delta: float) -> State:
 	else:
 		return parent.fallingState
 	
-	#return null
+	# return null

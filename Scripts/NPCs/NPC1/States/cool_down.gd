@@ -26,17 +26,20 @@ func process_physics(delta: float) -> NPCsState:
 	if !parent.is_on_floor():
 		parent.velocity.y += gravity * delta
 	
-	parent.runtime_vars.player_pos = (parent.player.global_position - parent.global_position).normalized()
+	parent.runtime_vars.player_pos = (Global.player.global_position - parent.global_position).normalized()
 	
 	if parent.runtime_vars.player_pos > Vector2(0, 0):
 		parent.dir = 1
 	elif parent.runtime_vars.player_pos < Vector2(0, 0):
 		parent.dir = -1
 	
-	parent.velocity.x = parent.walkSpeed * parent.dir
-	sprite.scale.x = abs(sprite.scale.x) * parent.dir
+	if !parent.g_ray_cast.is_colliding():
+		parent.velocity.x = parent.walkSpeed * parent.dir
+		sprite.scale.x = abs(sprite.scale.x) * parent.dir
 	
-	parent.move_and_slide()
+		parent.move_and_slide()
+	else:
+		return parent.idleState
 	
 	return null
 

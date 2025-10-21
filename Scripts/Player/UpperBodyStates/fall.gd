@@ -9,7 +9,7 @@ func enter() -> void:
 	parent.runtime_vars.is_falling = true
 	
 	attack_type.clear()
-	parent.runtime_vars.p_n_s_p = false
+	parent.runtime_vars.attack_queued = false
 
 func exit() -> void:
 	parent.runtime_vars.is_falling = false
@@ -35,11 +35,11 @@ func process_input(event: InputEvent) -> State:
 	
 	
 	if event.is_action_pressed("attack"):
-		parent.runtime_vars.p_n_s_p = true
+		parent.runtime_vars.attack_queued = true
 		attack_type.append(1)
 	
 	elif event.is_action_pressed("shoot"):
-		parent.runtime_vars.p_n_s_p = true
+		parent.runtime_vars.attack_queued = true
 		attack_type.append(2)
 	
 	return null
@@ -83,10 +83,10 @@ func process_physics(delta: float) -> State:
 	parent.move_and_slide()
 	
 	if parent.is_on_floor():
-		if parent.runtime_vars.p_n_s_p && attack_type.has(1):
+		if parent.runtime_vars.attack_queued && attack_type.has(1):
 			parent.runtime_vars.jump_points += 1
 			return parent.attackingState
-		if parent.runtime_vars.p_n_s_p && attack_type.has(2):
+		if parent.runtime_vars.attack_queued && attack_type.has(2):
 			parent.runtime_vars.jump_points += 1
 			return parent.shootingState
 		

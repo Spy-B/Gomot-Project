@@ -27,7 +27,7 @@ extends Node2D
 
 @export_group("Others")
 @export var player: CharacterBody2D
-@export_range(0, 100, 5, "or_greater") var damage: int = 25
+@export_range(0, 100, 5, "or_greater") var damageValue: int = 25
 
 @export var visiblityNotifier: bool = true
 
@@ -128,12 +128,12 @@ func apply_properties() -> void:
 
 func _on_pendulum_body_entered(body: Node2D) -> void:
 	if body == player:
-		body.health -= damage
+		body.health -= damageValue
 		body.runtime_vars.damaged = true
 		body.camera.shake(0.2, Vector2(2.0, 2.0))
 
 func _on_pendulum_2_body_entered(body: Node2D) -> void:
 	if body == player:
-		body.health -= damage
+		body.health -= damageValue
 		body.runtime_vars.damaged = true
 		body.camera.shake(0.2, Vector2(2.0, 2.0))

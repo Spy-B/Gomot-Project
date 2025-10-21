@@ -5,7 +5,7 @@ var dir: int = 1
 var shooter: CharacterBody2D = null
 
 
-@export var damage_value: int = 15
+@export var damageValue: int = 15
 @export var target: String
 
 @export var speed: int = 1000
@@ -37,10 +37,9 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	
 	if body.is_in_group(target):
-		#body.health -= damage_value
+		body.health -= damageValue
 		body.runtime_vars.damaged = true
-		body.runtime_vars.damage_value = damage_value
-		print("[Enemy] -> [Health]: -15")
+		print("[Enemy] -> [Health]: -", damageValue)
 		#shooter.runtime_vars.combo_fight_points += 1
 		
 		

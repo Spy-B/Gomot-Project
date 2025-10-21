@@ -31,11 +31,7 @@ func process_frame(_delta: float) -> State:
 		#parent.runSpeed = 80
 	
 	if parent.runtime_vars.damaged:
-		parent.runtime_vars.damaged = false
 		return parent.damagingState
-	
-	if parent.health <= 0:
-		return parent.deathState
 	
 	if parent.runtime_vars.npc_detected:
 		parent.ui.interact_key.visible = true

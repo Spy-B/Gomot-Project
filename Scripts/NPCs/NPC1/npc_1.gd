@@ -6,7 +6,6 @@ var runtime_vars: Dictionary = {
 	"player_detected": false,
 	"cool_down": false,
 	"damaged": false,
-	"damage_value": 0,
 	"waiting_time": 0.0,
 	"player_pos": Vector2(0, 0),
 }
@@ -45,6 +44,8 @@ var dir: int = 1
 
 ##Dialogue System
 @export_group("Others")
+@export var health: int = 100
+
 @export var dialogueJson: JSON
 @onready var state: Dictionary = {}
 
@@ -118,3 +119,5 @@ func _process(delta: float) -> void:
 	if player_detector.get_collider() == Global.player:
 		runtime_vars.player_detected = true
 		runtime_vars.cool_down = false
+	else:
+		runtime_vars.player_detected = false

@@ -1,7 +1,7 @@
 extends State
 
 @export_group("Timer")
-@onready var timer: Timer = $"../../Timers/StartJumpTimer"
+@onready var start_jump_timer: Timer = $"../../Timers/StartJumpTimer"
 @export var wait_time: float = 1
 
 var timeout: bool = false
@@ -11,8 +11,8 @@ func enter() -> void:
 	super()
 	
 	timeout = false
-	timer.wait_time = wait_time
-	timer.start()
+	start_jump_timer.wait_time = wait_time
+	start_jump_timer.start()
 
 func process_frame(_delta: float) -> State:
 	if parent.runtime_vars.damaged:

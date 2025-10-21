@@ -7,6 +7,8 @@ func enter() -> void:
 	print("[State] -> Respawning")
 	super()
 	
+	parent.collision_shape.disabled = false
+
 	parent.runtime_vars.just_respawn = true
 	parent.respawning_effect()
 	respawn_cooldown.start()

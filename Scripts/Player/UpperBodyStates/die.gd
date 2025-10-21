@@ -8,6 +8,7 @@ func enter() -> void:
 	print("[State] -> Death")
 	super()
 	
+	parent.collision_shape.disabled = true
 	respawn_timer.start()
 	
 	Engine.time_scale = 0.5
@@ -23,3 +24,4 @@ func process_frame(_delta: float) -> State:
 
 func _on_respawn_timer_timeout() -> void:
 	respawn_timeout = true
+	respawn_timer.stop()

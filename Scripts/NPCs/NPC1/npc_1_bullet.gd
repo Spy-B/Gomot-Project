@@ -38,7 +38,8 @@ func _on_Bullet_body_entered(body: Node2D) -> void:
 		if body.runtime_vars.just_respawn:
 			return
 		
-		body.health -= 15
+		body.health -= damage_value
+		body.runtime_vars.damaged = true
 		body.camera.shake(0.1, Vector2(2.0, 2.0))
 	
 	queue_free()

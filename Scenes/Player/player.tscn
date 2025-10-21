@@ -35,13 +35,14 @@
 [ext_resource type="PackedScene" uid="uid://dcqdlc1umudh4" path="res://Scenes/UIs/pause_menu.tscn" id="28_2ahak"]
 [ext_resource type="PackedScene" uid="uid://562d6x481l84" path="res://Scenes/UIs/Transation/feed_effect.tscn" id="29_rukb4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bmxon"]
-size = Vector2(18, 34.5)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2jnj1"]
+radius = 8.0
+height = 35.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ythyg"]
 shader = ExtResource("2_qr1w5")
 shader_parameter/flashColor = Color(1, 1, 1, 1)
-shader_parameter/flashValue = 0.00415285
+shader_parameter/flashValue = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omcea"]
 size = Vector2(21, 34.5)
@@ -171,7 +172,7 @@ tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/path = NodePath("CollisionShape2D:disabled")
-tracks/2/interp = 1
+tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0.56),
@@ -366,7 +367,7 @@ bulletScene = ExtResource("13_88yj3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2.75)
-shape = SubResource("RectangleShape2D_bmxon")
+shape = SubResource("CapsuleShape2D_2jnj1")
 
 [node name="UpperBodySprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ythyg")
@@ -375,7 +376,7 @@ texture = ExtResource("1_enipy")
 flip_h = true
 hframes = 12
 vframes = 11
-frame = 57
+frame = 25
 
 [node name="HitArea" type="Area2D" parent="UpperBodySprite"]
 position = Vector2(17, 16)
@@ -668,7 +669,7 @@ visible = false
 [connection signal="animation_finished" from="AnimationPlayer" to="UpperBodyMachine/Attack" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="UpperBodyMachine/Shoot" method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Timers/StartJumpTimer" to="UpperBodyMachine/StartJump" method="_on_start_jump_timer_timeout"]
-[connection signal="timeout" from="Timers/QuitStateTimer" to="UpperBodyMachine/Attack" method="_on_melee_combo_timer_timeout"]
+[connection signal="timeout" from="Timers/QuitStateTimer" to="UpperBodyMachine/Attack" method="_on_quit_state_timer_timeout"]
 [connection signal="timeout" from="Timers/ReloadingTimer" to="UpperBodyMachine/Reload" method="_on_reloading_timer_timeout"]
 [connection signal="timeout" from="Timers/RespawnTimer" to="UpperBodyMachine/Die" method="_on_respawn_timer_timeout"]
 [connection signal="timeout" from="Timers/RespawnCooldown" to="." method="_on_respawn_cooldown_timeout"]
