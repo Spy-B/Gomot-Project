@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxrtguea5i00"]
+[gd_scene load_steps=6 format=3 uid="uid://cxrtguea5i00"]
 
 [ext_resource type="Script" uid="uid://ysdx7iqbppxm" path="res://Scripts/UIs/splash_screen.gd" id="1_7i40u"]
-[ext_resource type="Texture2D" uid="uid://bel056ndoiotm" path="res://Assets/Rafia-SplashArt.png" id="2_r1p5o"]
-[ext_resource type="Texture2D" uid="uid://wd7tvmwvv7gu" path="res://Default/RAFIA_LOGO - Cuted.png" id="3_adn7g"]
-[ext_resource type="Texture2D" uid="uid://bxr07mkwh3sgr" path="res://Default/RAPK_Project_Logo.png" id="4_10ake"]
+[ext_resource type="Texture2D" uid="uid://bel056ndoiotm" path="res://Assets/gomot-splash_art.png" id="2_r1p5o"]
+[ext_resource type="Texture2D" uid="uid://ctre21yxjgskn" path="res://Default/Gomot-Logo - Only Content.png" id="3_q0drn"]
 [ext_resource type="FontFile" uid="uid://c6ru82xe18d6j" path="res://Assets/Fonts/BoldPixels1.4.ttf" id="4_q0drn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_f6uch"]
@@ -32,7 +31,7 @@ texture = ExtResource("2_r1p5o")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="GameStudio" type="TextureRect" parent="."]
+[node name="GomotLogo" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -45,23 +44,18 @@ offset_right = -208.0
 offset_bottom = -56.63
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("3_adn7g")
+texture = ExtResource("3_q0drn")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="RapkProjectLogo" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(276, 52)
-scale = Vector2(0.14, 0.14)
-texture = ExtResource("4_10ake")
-
 [node name="MadeWithLabel" type="Label" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 208.0
 offset_top = 64.0
 offset_right = 542.0
 offset_bottom = 103.0
-text = "Made With R.A.P.K"
+text = "Made With Gomot Framework"
 label_settings = SubResource("LabelSettings_f6uch")
 horizontal_alignment = 1
 vertical_alignment = 1

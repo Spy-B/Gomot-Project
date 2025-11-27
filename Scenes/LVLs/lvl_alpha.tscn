@@ -293,7 +293,6 @@ shape = SubResource("RectangleShape2D_fm782")
 position = Vector2(0, 1500)
 
 [node name="NightFilter" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.705882, 0.705882, 0.705882, 1)
 
 [node name="TimeScaleTimer" type="Timer" parent="."]
